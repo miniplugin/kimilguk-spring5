@@ -303,11 +303,12 @@ public class HomeController {
 		return "home/member/mypage";//.jsp생략
 	}
 	//사용자단 로그인 폼호출 GET, 로그인POST처리는 컨트롤러에서 하지않고 스프링시큐리티로 처리
-	@RequestMapping(value="/login_form", method=RequestMethod.GET)
-	public String login_form() throws Exception {
-		
-		return "home/login";//.jsp생략
-	}
+	//네아로 로그인때문에 LoginController클래스로 분리해서 사용합니다. 그래서 아래는 주석처리
+//	@RequestMapping(value="/login_form", method=RequestMethod.GET)
+//	public String login_form() throws Exception {
+//
+//		return "home/login";//.jsp생략
+//	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homepage(Model model) throws Exception { //콜백메스드,자동실행됨.
 //		String jspVar = "@서비스(DB)에서 처리한 결과";

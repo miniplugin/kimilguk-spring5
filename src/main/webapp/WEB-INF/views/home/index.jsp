@@ -8,7 +8,7 @@
 }
 /* 겔러리,공지사항 게시물 제목 자르기(아래) */
 .title_crop {
-	white-space:nowrap;
+	white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 </style>
 <script>
