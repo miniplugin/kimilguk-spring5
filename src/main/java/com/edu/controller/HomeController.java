@@ -318,7 +318,19 @@ public class HomeController {
 		pageVO.setPage(1);//필수값1
 		pageVO.setQueryPerPageNum(3);//겔러리3개
 		pageVO.setBoard_type("gallery");
-		model.addAttribute("latestGallery", boardService.selectBoard(pageVO));//겔러리 최근게시물
+		//첨부파일 save_file_names 배열변수 값을 지정
+		List<BoardVO> latestGallery = boardService.selectBoard(pageVO);
+		
+		for(BoardVO boardVO:latestGallery) {//리스트형 객체를 1개씩 뽑아서 1개 레코드에 입력을 반복
+			List<AttachVO> listAttachVO = boardService.readAttach(boardVO.getBno());
+			if(listAttachVO.size() > 0) {
+				String[] save_file_names = new String[listAttachVO.size()];
+				save_file_names[0] = listAttachVO.get(0).getSave_file_name();
+				boardVO.setSave_file_names(save_file_names);
+			}
+		}
+		
+		model.addAttribute("latestGallery", latestGallery);//겔러리 최근게시물
 		
 		pageVO.setQueryPerPageNum(5);//공지사항5개,보드타입 필요(세션으로 처리않됨)
 		pageVO.setBoard_type("notice");

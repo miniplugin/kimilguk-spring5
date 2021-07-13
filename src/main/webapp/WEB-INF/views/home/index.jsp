@@ -93,7 +93,14 @@ $(document).ready(function() {
 				<c:forEach var="galleryVO" items="${latestGallery}">
 					<!-- 게시판종류 board_type값은 세션이지만, 여기서 최초로 세션을 발생시켜야 합니다. -->
 					<li><a href="/home/board/board_view?bno=${galleryVO.bno}&page=1&board_type=gallery">
-							<img class="img_topplace" src="/resources/home/img/no_image.png" alt="OOOO OOOOO" style="opacity:0.7;"/>
+						<c:choose>
+							<c:when test="${empty galleryVO.save_file_names[0]}">
+								<img class="img_topplace" src="/resources/home/img/no_image.png" alt="OOOO OOOOO" style="opacity:0.7;"/>
+							</c:when>
+							<c:otherwise>
+								<img class="img_topplace" src="/image_preview?save_file_name=${galleryVO.save_file_names[0]}" alt="OOOO OOOOO" style="opacity:0.7;"/>
+							</c:otherwise>
+						</c:choose>
 							<h3>${galleryVO.title}</h3>
 							<p class="txt">${galleryVO.content}</p>
 							<span class="view">VIEW</span>
