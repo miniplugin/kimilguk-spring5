@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="./include/header.jsp" %>
+<style>
+.latest_img:hover {opacity:1.0;}
+.latest_img {
+	height:250px;overflow:hidden;opacity:0.7;
+}
+/* 겔러리,공지사항 게시물 제목 자르기(아래) */
+.title_crop {
+	white-space:nowrap;
+}
+</style>
 <script>
 // 메인페이지 전용 슬라이드 호출 부분: index에서만 필요한 코드이기 때문에
 $(document).ready(function() {
@@ -93,16 +103,32 @@ $(document).ready(function() {
 				<c:forEach var="galleryVO" items="${latestGallery}">
 					<!-- 게시판종류 board_type값은 세션이지만, 여기서 최초로 세션을 발생시켜야 합니다. -->
 					<li><a href="/home/board/board_view?bno=${galleryVO.bno}&page=1&board_type=gallery">
+						<div class="latest_img">
 						<c:choose>
 							<c:when test="${empty galleryVO.save_file_names[0]}">
-								<img class="img_topplace" src="/resources/home/img/no_image.png" alt="OOOO OOOOO" style="opacity:0.7;"/>
+								<img class="img_topplace" src="/resources/home/img/no_image.png" alt="OOOO OOOOO"/>
 							</c:when>
 							<c:otherwise>
-								<img class="img_topplace" src="/image_preview?save_file_name=${galleryVO.save_file_names[0]}" alt="OOOO OOOOO" style="opacity:0.7;"/>
+								<img class="img_topplace" src="/image_preview?save_file_name=${galleryVO.save_file_names[0]}" alt="OOOO OOOOO"/>
 							</c:otherwise>
 						</c:choose>
-							<h3>${galleryVO.title}</h3>
-							<p class="txt">${galleryVO.content}</p>
+						</div>						
+							<h3 class="title_crop">
+							<!-- css로 1줄 글자수 자르기 처리 -->
+								${galleryVO.title}
+							</h3>
+							
+							<p class="txt">
+							<!-- jstl로 글자수 자르기 처리 -->
+							<c:choose>
+								<c:when test="${fn:length(galleryVO.content) gt 52}">
+									${fn:substring(galleryVO.content,0,50)}...
+								</c:when>
+								<c:otherwise>
+									${galleryVO.content}
+								</c:otherwise>
+							</c:choose>
+							</p>
 							<span class="view">VIEW</span>
 						</a>
 					</li>
