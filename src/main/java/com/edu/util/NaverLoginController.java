@@ -32,6 +32,7 @@ public class NaverLoginController {
 	//네이버에서 제공해 주는 이름,이메일 정보등을 가져올수 있는 RestAPI URL설정
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 	
+	//네아
 	//네이버에서 제공하는 인증 URL구하는 메서드(사용자 로그인폼에 $url로 제공하게됨)
 	public String getAuthorizationUrl(HttpSession session) {
 		// 세션에 유효성 검증을 위하여 난수를 생성(아래)
@@ -46,6 +47,7 @@ public class NaverLoginController {
 				.state(state)
 				.build(NaverLoginApi.instance());
 		return oauthService.getAuthorizationUrl();
+		//위 리턴값으로 네아로의 인증 URL(RestApi서비스)이 생성됨. 
 	}
 
 	private void setSession(HttpSession session, String state) {
