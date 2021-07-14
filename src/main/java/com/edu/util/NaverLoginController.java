@@ -32,7 +32,8 @@ public class NaverLoginController {
 	//네이버에서 제공해 주는 이름,이메일 정보등을 가져올수 있는 RestAPI URL설정
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 	
-	//네아
+	//네아로에서 Access Token(토큰:네트워크용 데이터를 명시) 구하기
+	
 	//네이버에서 제공하는 인증 URL구하는 메서드(사용자 로그인폼에 $url로 제공하게됨)
 	public String getAuthorizationUrl(HttpSession session) {
 		// 세션에 유효성 검증을 위하여 난수를 생성(아래)

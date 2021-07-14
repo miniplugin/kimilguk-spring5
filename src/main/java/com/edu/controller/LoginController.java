@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,11 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edu.service.IF_MemberService;
 import com.edu.util.NaverLoginController;
 import com.edu.vo.MemberVO;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 /**
  * 이 클래스는 스프링시큐리티의 /login처리한 결과를 받아서 /login_success
@@ -31,14 +35,37 @@ public class LoginController {
 	@Inject
 	private IF_MemberService memberService;
 	@Inject
-	private NaverLoginController loginController;
+	private NaverLoginController naverLoginController;
 	
+	//네이버 인증체크 후 이동할 URL=콜백 URL로 네이버에서 매개변수를 주는 데이터를 @RequestParam받음.
+	//@RequestMapping("/naver_callback") //이렇하면, GET,POST 2개다 가능
+	@RequestMapping(value="/naver_callback",method= {RequestMethod.GET,RequestMethod.POST})
+	public String naver_callback(@RequestParam(required=false)String code,@RequestParam String state,HttpSession session,Model model,RedirectAttributes rdat) {
+		//네아로 에서 로그인 취소 버튼을 눌렀을때 처리하는 로직
+		if(code == null) {
+			rdat.addFlashAttribute("msgError", "네이버 인증처리를 취소했습니다.");
+			return "redirect:/login_form";//로그인 폼으로 다시 이동후 끝
+		}
+		OAuth2AccessToken oauthToken;//인증에 사용되는 토큰 객체 생성
+		oauthToken = naverLoginController.getAccessToken(session,code,state);
+		//위 인증에 사용된 토큰은 네이버에 제공된 프로필정보를 가져올때 토큰이 필요함.
+		String profile = naverLoginController.getUserProfile(oauthToken);
+		//위 스트링형 profile 정보를 json데이터로 파싱합니다.(key:value 형태로 만듬)
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(profile);//Json데이터로 파싱
+		JSONObject jsonObj = (JSONObject) obj;//json오브젝트형변환
+		JSONObject response_obj = (JSONObject) jsonObj.get("response");
+		//위 최종적으로 출력된 response_obj를 파싱시작(아래)
+		String username = (String) response_obj.get("name");
+		String useremail = (String) response_obj.get("email");
+		return "";
+	}
 	//HomeController에 있던 /login_form을 네아로 로그인URL 생성때문에 여기로 이동.
 	@RequestMapping(value="/login_form",method=RequestMethod.GET)
 	public String login_form(Model model,HttpSession session) throws Exception {
 		//네이버 인증 Url구하기:세션은 서버에 클라이언트접속정보를 저장하는 공간이 세션입니다. 
 		String naverAuthUrl = "";
-		naverAuthUrl = loginController.getAuthorizationUrl(session);
+		naverAuthUrl = naverLoginController.getAuthorizationUrl(session);
 		model.addAttribute("url", naverAuthUrl);
 		return "home/login";//.jsp생략
 	}

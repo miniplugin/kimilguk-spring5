@@ -214,7 +214,7 @@
 			<artifactId>scribejava-core</artifactId>
 			<version>2.8.1</version>
 		</dependency>
-		<!-- naver용 리턴값 json파싱 -->
+		<!-- naver용 사용자프로필 리턴값을 json으로 파싱하기 위해서 -->
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>
 		    <artifactId>json-simple</artifactId>
