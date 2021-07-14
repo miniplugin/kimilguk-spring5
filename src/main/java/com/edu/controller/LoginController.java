@@ -1,5 +1,6 @@
 package com.edu.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,7 +46,7 @@ public class LoginController {
 	//네이버 인증체크 후 이동할 URL=콜백 URL로 네이버에서 매개변수를 주는 데이터를 @RequestParam받음.
 	//@RequestMapping("/naver_callback") //이렇하면, GET,POST 2개다 가능
 	@RequestMapping(value="/naver_callback",method= {RequestMethod.GET,RequestMethod.POST})
-	public String naver_callback(@RequestParam(required=false)String code,@RequestParam String state,HttpSession session,Model model,RedirectAttributes rdat) {
+	public String naver_callback(@RequestParam(required=false)String code,@RequestParam String state,HttpSession session,Model model,RedirectAttributes rdat) throws IOException, ParseException {
 		//네아로 에서 로그인 취소 버튼을 눌렀을때 처리하는 로직
 		if(code == null) {
 			rdat.addFlashAttribute("msgError", "네이버 인증처리를 취소했습니다.");
