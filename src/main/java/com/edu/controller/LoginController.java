@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +40,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
  */
 @Controller
 public class LoginController {
+	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Inject
 	private IF_MemberService memberService;
 	@Inject
@@ -57,14 +60,17 @@ public class LoginController {
 		//위 인증에 사용된 토큰은 네이버에 제공된 프로필정보를 가져올때 토큰이 필요함.
 		String profile = naverLoginController.getUserProfile(oauthToken);
 		//위 스트링형 profile 정보를 json데이터로 파싱합니다.(key:value 형태로 만듬)
+		//logger.info("디버그119 " + profile.toString());
+		//디버그119 {"resultcode":"00","message":"success","response":{"id":"nlAl_ohdFzDJFZmpUaG4P_6L2_DkJHMsKTHDACo-nCw","email":"boramcom@daum.net","name":"\uae40\uc77c\uad6d"}}
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(profile);//Json데이터로 파싱
-		JSONObject jsonObj = (JSONObject) obj;//json오브젝트형변환
-		JSONObject response_obj = (JSONObject) jsonObj.get("response");
+		JSONObject jsonObj = (JSONObject) obj;//반환코드+메세지변수값+response값
+		JSONObject response_obj = (JSONObject) jsonObj.get("response");//프로파일
+		String status = (String) jsonObj.get("message");//인증성공여부확인 변수값
 		//위 최종적으로 출력된 response_obj를 파싱시작(아래)
 		String username = (String) response_obj.get("name");
 		String useremail = (String) response_obj.get("email");
-		String status = (String) response_obj.get("message");
+		
 		if(status.equals("success")) {//네이버인증처리 결과가success
 			//인증성공 이후 스프링시큐리티의 ROLE_USER권한을 받아야지만,
 			//insert, member, update, delete URL에 접근이 가능
