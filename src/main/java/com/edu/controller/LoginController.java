@@ -86,7 +86,7 @@ public class LoginController {
 			session.setAttribute("session_userid", useremail);
 			session.setAttribute("session_levels", "ROLE_USER");
 			session.setAttribute("session_username", username);
-			
+			session.setAttribute("session_login_type", "sns");//마이페이지 않보이게처리용
 			rdat.addFlashAttribute("msg", "네이버 아이디 로그인");//출력결과: 네이버 아이디 로그인 이(가) 성공 하였습니다. alert창으로 나옴
 		} else {
 			rdat.addFlashAttribute("msgError", "네이버 인증이 실패했습니다. 다시 로그인해 주세요!");
