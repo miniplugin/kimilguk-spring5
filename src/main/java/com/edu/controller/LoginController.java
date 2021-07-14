@@ -1,6 +1,8 @@
 package com.edu.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -8,8 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -58,7 +62,29 @@ public class LoginController {
 		//위 최종적으로 출력된 response_obj를 파싱시작(아래)
 		String username = (String) response_obj.get("name");
 		String useremail = (String) response_obj.get("email");
-		return "";
+		String status = (String) response_obj.get("message");
+		if(status.equals("success")) {//네이버인증처리 결과가success
+			//인증성공 이후 스프링시큐리티의 ROLE_USER권한을 받아야지만,
+			//insert, member, update, delete URL에 접근이 가능
+			//시작:여기서 부터 스프링시큐리티 코드가 시작됨.
+			List<SimpleGrantedAuthority> authorities = new ArrayList();//스프링시큐리티 권한을 강제로 만듭니다.
+			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));//ROLE_USER라는 권한을 강제로 추가.
+			//스프링 시큐리티 인증도 강제로 추가(아래)
+			Authentication authentication = new UsernamePasswordAuthenticationToken(useremail,null,authorities);//인증 토큰을 강제로 생성
+			SecurityContextHolder.getContext().setAuthentication(authentication);//위에서 발생한 인증 토큰을 시큐리티클래스에 저장
+			//끝:여기까지 스프링시큐리티 로직 끝
+			//로그인 세션 변수 생성(아래)
+			session.setAttribute("session_enabled", true);
+			session.setAttribute("session_userid", useremail);
+			session.setAttribute("session_levels", "ROLE_USER");
+			session.setAttribute("session_username", username);
+			
+			rdat.addFlashAttribute("msg", "네이버 아이디 로그인");//출력결과: 네이버 아이디 로그인 이(가) 성공 하였습니다. alert창으로 나옴
+		} else {
+			rdat.addFlashAttribute("msgError", "네이버 인증이 실패했습니다. 다시 로그인해 주세요!");
+			return "redirect:/login_form";//로그인폼으로
+		}
+		return "redirect:/";//로그인 성공했다면, 홈페이지로 이동
 	}
 	//HomeController에 있던 /login_form을 네아로 로그인URL 생성때문에 여기로 이동.
 	@RequestMapping(value="/login_form",method=RequestMethod.GET)
