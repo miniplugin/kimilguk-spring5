@@ -70,13 +70,16 @@
 - 위 HashMap구조: Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그: 그물망(해시)=#=좌표(x,y)=(Key:Value)
 
+#### 20210716(금) 작업예정.
+- jsp템플릿인 tiles(타일즈) 사용.
+- 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
+
 #### 20210715(목) 작업.
 - 데이터의 이동과 변수값처리 2가지만 아시면, 개발자로 일할 수 있음.
 - 문서작업(제출용)확인OK.(설명 후 작업시간 드릴 예정, 작업시간중 네아로 않되는 분 확인)
 - 관리자대시보드에서 회원ID 이미지업로드 및 보이기 처리예정.
 - C:\egov\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\kimilguk-spring5\resources\profile
 - URL로 접근할때는 http://localhost:8080/resources/profile/admin22
-- jsp템플릿인 tiles(타일즈) 사용.
 
 #### 20210714(수) 작업.
 - 네아로 로그인 부분 마무리.: 외부API이고, 네이버 개발자들이 만든내용.
