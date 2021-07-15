@@ -74,6 +74,8 @@
 - 데이터의 이동과 변수값처리 2가지만 아시면, 개발자로 일할 수 있음.
 - 문서작업(제출용)확인OK.(설명 후 작업시간 드릴 예정, 작업시간중 네아로 않되는 분 확인)
 - 관리자대시보드에서 회원ID 이미지업로드 및 보이기 처리예정.
+- C:\egov\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\kimilguk-spring5\resources\profile
+- URL로 접근할때는 http://localhost:8080/resources/profile/admin22
 - jsp템플릿인 tiles(타일즈) 사용.
 
 #### 20210714(수) 작업.

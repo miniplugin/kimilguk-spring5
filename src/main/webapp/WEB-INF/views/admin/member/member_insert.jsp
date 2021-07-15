@@ -43,8 +43,8 @@
                 <label for="exampleInputFile">사용자프로필</label>
                 <div class="input-group">
                   <div class="custom-file">
-                    <input name="file" type="file" class="custom-file-input" id="file0">
-                    <label class="custom-file-label" for="file0">파일선택</label>
+                    <input accept=".png" name="file" type="file" class="custom-file-input" id="file0">
+                    <label class="custom-file-label" for="file0">파일선택(png)</label>
                   </div>
                 </div>
               </div>
