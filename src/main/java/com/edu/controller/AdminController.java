@@ -288,7 +288,12 @@ public class AdminController {
 	}
 	//아래 경로는 수정처리를 호출=DB를 변경처리함.
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
-	public String updateMember(MemberVO memberVO, PageVO pageVO) throws Exception {
+	public String updateMember(HttpServletRequest request, MultipartFile file,MemberVO memberVO, PageVO pageVO) throws Exception {
+		//프로필 이미지 처리 추가
+		if(!file.getOriginalFilename().isEmpty()) {
+			String user_id = memberVO.getUser_id();
+			commonUtil.profile_upload(user_id, request, file);
+		}
 		//update 서비스만 처리하면 끝
 		//업데이트 쿼리서비스 호출하기 전 스프링시큐리티 암호화 적용합니다.
 		String rawPassword = memberVO.getUser_pw();
