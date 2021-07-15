@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
@@ -210,5 +211,11 @@ public class CommonUtil {
 		File target = new File(uploadPath, saveFileName);
 		FileCopyUtils.copy(fileData, target);//파일이 물리적으로 폴더에 저장됨.
 		return saveFileName;//UUID로 생성된 식별값의 파일명 
+	}
+
+	public void profile_upload(String user_id, HttpServletRequest request, MultipartFile file) {
+		// TODO 프로필이미지는 보안이 필요한 폴더가 아닌, resources폴더에 업로드 처리. 서버의 경로필요
+		String folderPath = request.getServletContext().getRealPath("/resources/profile");
+		
 	}
 }

@@ -38,6 +38,16 @@
           <form name="form_write" action="/admin/member/member_insert" method="post" enctype="multipart/form-data">
             <div class="card-body">
               
+              <!-- 사용자 프로필 이미지 등록 태그추가 -->
+              <div class="form-group">
+                <label for="exampleInputFile">사용자프로필</label>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input name="file" type="file" class="custom-file-input" id="file0">
+                    <label class="custom-file-label" for="file0">파일선택</label>
+                  </div>
+                </div>
+              </div>
               <div class="form-group">
                 <!-- 신규등록시 ID중복체크필수:버튼이벤트 -->
                 <label for="user_id">사용자ID
@@ -96,6 +106,14 @@
 
 <%@ include file="../include/footer.jsp" %>
 <!-- 관리자단은 jQuery코어가 하단 footer에 있기 때문에 여기에 위치합니다. -->
+<!-- 첨부파일명을 input태그디자인 안쪽에 집어넣는 확장프로그램 -->
+<script src="/resources/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- 위 첨부파일 확장프로그램 실행(아래-개발자가 처리) -->
+<script>
+	$(document).ready(function(){
+		bsCustomFileInput.init();
+	});
+</script>
 <script>
 $(document).ready(function(){
 	//RestAPI서버클래스 맛보기 에서 ID중복체크 메서드를 확인 합니다.

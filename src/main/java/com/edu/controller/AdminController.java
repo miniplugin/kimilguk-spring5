@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -274,7 +275,10 @@ public class AdminController {
 	}
 	//아래 경로는 회원신규등록을 처리하는 서비스를 호출하는 URL
 	@RequestMapping(value="/admin/member/member_insert", method=RequestMethod.POST)
-	public String insertMember(PageVO pageVO,MemberVO memberVO) throws Exception {
+	public String insertMember(HttpServletRequest request,MultipartFile file,PageVO pageVO,MemberVO memberVO) throws Exception {
+		if(!file.getOriginalFilename().isEmpty()) {
+			commonUtil.profile_upload(memberVO.getUser_id(),request,file);
+		}
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String rawPassword = memberVO.getUser_pw();//원시 패스워드값
 		String encPassword = passwordEncoder.encode(rawPassword);
