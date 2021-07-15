@@ -93,7 +93,7 @@
               <button type="button" class="btn btn-info" id="btn_prev">이전</button>
               <button type="button" class="btn btn-default" id="btn_list">목록</button>
             </div>
-            <input name="page" type="text" value="${pageVO.page}">
+            <input name="page" type="hidden" value="${pageVO.page}">
             <input name="search_type" type="hidden" value="${pageVO.search_type}">
             <%-- <input name="search_keyword" type="hidden" value="${pageVO.search_keyword}"> --%>
           </form>

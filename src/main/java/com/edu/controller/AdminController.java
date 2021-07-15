@@ -290,7 +290,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
 	public String updateMember(HttpServletRequest request, MultipartFile file,MemberVO memberVO, PageVO pageVO) throws Exception {
 		//프로필 이미지 처리 추가
-		if(!file.getOriginalFilename().isEmpty()) {
+		if(!file.getOriginalFilename().isEmpty()) {//신규파일이 없으면 
 			String user_id = memberVO.getUser_id();
 			commonUtil.profile_upload(user_id, request, file);
 		}
@@ -320,7 +320,7 @@ public class AdminController {
 		return "admin/member/member_update";//상대경로
 	}
 	@RequestMapping(value="/admin/member/member_delete", method=RequestMethod.POST)
-	public String deleteMember(MemberVO memberVO) throws Exception {
+	public String deleteMember(HttpServletRequest request, MemberVO memberVO) throws Exception {
 		logger.info("디버그: " + memberVO.toString());
 		//MemberVO memberVO는 클래스형 변수: String user_id 스트링형 변수 같은 방식.
 		String user_id = memberVO.getUser_id();
@@ -329,6 +329,8 @@ public class AdminController {
 		//return "admin/member/member_list";//삭제후 이동할 jsp경로지정
 		//위 방식대로하면, 새로고침하면, /admin/member/member_delete 계속 실행됩니다.-사용자단에서 실습
 		//게시판테러상황을 방지하기 위해서, 쿼리를 작업 후 이동할때는 redirect(다시접속)라는 명령을 사용합니다.
+		//DB테이블 삭제 후 회원프로필 이미지가 exist()==true면 삭제하는 로직 추가
+		commonUtil.profile_delete(user_id,request);
 		return "redirect:/admin/member/member_list";//단,redirect는 절대경로를 사용.
 	}
 	@RequestMapping(value="/admin/member/member_view", method=RequestMethod.GET)
