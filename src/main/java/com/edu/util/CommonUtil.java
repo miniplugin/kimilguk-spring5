@@ -223,7 +223,7 @@ public class CommonUtil {
 		//1개에 파일이 1000개 이상이면, 조회속도가 엄청느리짐.
 		//년월폴더를 생성 후, 해당년월에 업로드된 파일은 년월폴더로 관리.
 		byte[] fileData = file.getBytes();
-		File target = new File(makeFolder,user_id);//user_id는 PK이기 때문에 기존파일있다면, 덮어쓰면서 저장됩니다.
+		File target = new File(makeFolder,user_id+".png");//user_id는 PK이기 때문에 기존파일있다면, 덮어쓰면서 저장됩니다.
 		FileCopyUtils.copy(fileData, target);//첨부파일이 저장이 됩니다.
 	}
 }

@@ -44,7 +44,7 @@
                 <div class="input-group">
                   <div class="custom-file">
                     <input accept=".png" name="file" type="file" class="custom-file-input" id="file0">
-                    <label class="custom-file-label" for="file0">파일선택(png)</label>
+                    <label class="custom-file-label" for="file0">파일선택(*png이미지만가능)</label>
                   </div>
                 </div>
               </div>
