@@ -18,11 +18,11 @@
 - 사용자단 게시판 CRUD 처리.
 - 헤로쿠 클라우드에 배포(9.클라우드 배포CI/CD구현-개발트렌드).깃(최신소스)-연동-헤로쿠(배포)
 - 사용자단 댓글 CRUD 처리.
-- 문서작업(제출용)
-- [실습시간이 가능하다면: 관리자대시보드에서 회원ID 이미지업로드 및 보이기 처리)]
-- [실습시간이 가능하다면: 사용자단 네이버아이디로그인 처리(10.외부RestAPI구현).]
-- [실습시간이 가능하다면: 알고리즘 다이어그램기반으로 자바코딩테스트]
+- 문서작업(제출용)OK.
+- 관리자대시보드에서 회원ID 이미지업로드 및 보이기 처리OK.
+- 사용자단 네이버아이디로그인 처리(10.외부RestAPI구현)OK.
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()를 date_add(now(3), interval 9 HOUR) 변경예정.(이유는 DB서버 타임존 미국이기 때문에)
+- 알고리즘 다이어그램기반으로 자바 코딩테스트 작업시작
 #### 작업일정.
 - 7월9일(금) 모두 줌으로 수업
 - 7월12(월) 학원이사로 휴강
@@ -38,7 +38,11 @@
 - 현업에서는 위 3가지 템플릿중 1가지는 항상 사용하기 때문에 대표적으로 타일즈를 실습할 예정입니다.
 - 위 3가지 구조는 비슷하기 때문에 1가지만 아셔도 다른 jsp템플릿 적용시 응용가능합니다.
 - 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
-
+- 코딩테스트 3가지: 1. dev구름처럼 온라인 코딩테스트.(디버그)
+- 2. 회사에서 PC제공해서 PC의 이클립스에서 코딩테스트.(디버그)
+- 3. 회사에서 종이에 코딩테스트: 수두코딩(Pseudo-code)로 로직만 검사하는 테스트.(디버그X)
+- 문제를 분석 -> 다이어그램만들기 -> 자바코딩 테스트
+- 10개 다이어그램 -> 자바코딩 테스트
 #### 데이터의 이동
 - VO클래스의 이동: 매퍼쿼리<->DAO(M)<->Service<->Controller(C)<->jsp(V)
 
@@ -70,6 +74,9 @@
 - 위 HashMap구조: Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그: 그물망(해시)=#=좌표(x,y)=(Key:Value)
 
+#### 20210719(월) 작업예정.
+- 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
+
 #### 20210716(금) 작업.
 - 수업전 헤로쿠에 배포 후 어제 작업한 결과 확인해 보겠습니다.-오후수업전 다시확인
 - jsp템플릿인 tiles(타일즈) 사용.
@@ -85,9 +92,48 @@
 - 4. 위 설정파일을 기준으로 tiles폴더 및 layouts폴더 생성 후 layout.jsp생성OK.
 - 5. 기존 home/include 폴더의 header.jsp 와 footer.jsp 파일 복사해서 그대로 사용OK.
 - 6. 기존 home/index.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리OK.
-- 7. HomeController 에서 기존 @RequestMapping 복사해서 타일즈용으로 추가
+- 7. HomeController 에서 기존 @RequestMapping 복사해서 타일즈용으로 추가OK.
 - -------------------------------------------------------
-- 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
+- 알고리즘 다이어그램기반으로 자바코딩테스트(깃 it강의저장소자료이용)OK.
+
+```
+import java.io.BufferedReader; //키보드 입력 때문에 필요
+import java.io.InputStreamReader; //기보드 입력 때문에 필요
+import java.util.Arrays; //오름차순 정렬때문에 필요
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N;
+		int[] questions;
+		N = Integer.parseInt(br.readLine());//키보드로 입력받는 커서가 나옴
+		//System.out.println("키보드로 입력한 값은 " + N);
+		questions = new int[N];//키보드로 입력한 값N으로 난이도배열의 크기를 지정합니다.
+		String str = br.readLine();//키보드 입력받는 커서가 나옴. 단, 숫자사이에 공백을 집어넣습니다.
+		//문자열로 입력 받은 문자를 questions 정수형배열변수에 하나씩 입력합니다.
+		String[] strArray = str.split(" ");
+		for(int i=0;i<N;i++) {
+			questions[i] = Integer.parseInt(strArray[i]);
+		}
+		//System.out.println("난이도 입력값 " + Arrays.toString(questions));
+		Arrays.sort(questions);//입력받은 questions배열을 오름차순 정렬
+		int count = 0;
+		int before = questions[0];
+		//int current = 0;
+		for(int current:questions) {
+			if(before != current) {
+				count = count + 1;
+			}
+			if(count == 2) { break; }
+			before = current;
+		}
+		if(count >= 2) {
+			System.out.println("YES");
+		} else {
+			System.out.println("NO");
+		}
+	}
+}
+```
 
 #### 20210715(목) 작업.
 - 데이터의 이동과 변수값처리 2가지만 아시면, 개발자로 일할 수 있음.
