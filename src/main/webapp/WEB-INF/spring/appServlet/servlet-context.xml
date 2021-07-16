@@ -32,6 +32,20 @@
 	<!-- 2010년 스프링 초창기 부터 사용했던 RestApi구현방식입니다. 컨트롤러에서 리턴받는 값을 아래 빈의 ID로 지정해서 jsp에서 return값으로 사용. -->
 	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 		
+	<!-- 타일즈 템플릿 리졸버(해석기)를 추가 join.tiles를 리볼버(해석)이 가능하게됨. -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="order" value="0" />
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</beans:bean>
+	<!-- 타일즈 설정파일 tiles-context가져오기 -->
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:value>
+			/WEB-INF/spring/tiles-context.xml
+			</beans:value>
+		</beans:property>
+	</beans:bean>
+		
 	<context:component-scan base-package="com.edu.controller" />
 	<context:component-scan base-package="com.edu.util" />
 	<!-- AOP 프록시 저장소 추가 와 AOP기본설정 내용 자동추가됨. -->

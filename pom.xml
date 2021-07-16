@@ -220,7 +220,12 @@
 		    <artifactId>json-simple</artifactId>
 		    <version>1.1</version>
 		</dependency>
-		
+		<!-- 타일즈 jsp템플릿 모듈 라이브러리 추가(아래) -->
+		<dependency>
+	        <groupId>org.apache.tiles</groupId>
+	        <artifactId>tiles-extras</artifactId>
+	        <version>3.0.8</version>
+	    </dependency>
 	</dependencies>
     <build>
     	<defaultGoal>install</defaultGoal>
