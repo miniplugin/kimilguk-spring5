@@ -336,7 +336,8 @@ public class HomeController {
 		pageVO.setQueryPerPageNum(5);//공지사항5개,보드타입 필요(세션으로 처리않됨)
 		pageVO.setBoard_type("notice");
 		model.addAttribute("latestNotice", boardService.selectBoard(pageVO));//공지사항 최근게시물
-		return "home/index";//확장자가 생략 .jsp가 생략되어 있음.
+		//return "home/index";//타일즈 적용 전
+		return "index.tiles";//타일즈 적용 후 tiles폴더안 index.jsp호출
 	}
 	
 }

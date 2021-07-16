@@ -82,9 +82,9 @@
 - 1. pom.xml 타일즈 모듈 라이브러리 추가OK.
 - 2. tiles-context.xml 타일즈설정파일 추가OK.
 - 3. servlet-context.xml 에서 타일즈용 뷰리졸버 빈 추가OK.
-- 4. 위 설정파일을 기준으로 tiles폴더 및 layouts폴더 생성 후 layout.jsp생성
-- 5. 기존 home/include 폴더의 header.jsp 와 footer.jsp 파일 복사해서 그대로 사용
-- 6. 기존 home/index.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리
+- 4. 위 설정파일을 기준으로 tiles폴더 및 layouts폴더 생성 후 layout.jsp생성OK.
+- 5. 기존 home/include 폴더의 header.jsp 와 footer.jsp 파일 복사해서 그대로 사용OK.
+- 6. 기존 home/index.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리OK.
 - 7. HomeController 에서 기존 @RequestMapping 복사해서 타일즈용으로 추가
 - -------------------------------------------------------
 - 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).

@@ -9,5 +9,6 @@
 <body>
 	<t:insertAttribute name="header" />
 	<t:insertAttribute name="content" />
+	<t:insertAttribute name="footer" />
 </body>
 </html>

@@ -3,9 +3,9 @@
 <!-- dtd:document type definition 문서 형태 정의 -->
 <tiles-definitions>
 	<definition name="tiles_layout" templateExpression="/WEB-INF/views/tiles/layouts/layout.jsp">
-		<put-attribute name="header" expression="/WEB-INF/views/tiles/header.jsp"/>
+		<put-attribute name="header" expression="/WEB-INF/views/tiles/layouts/header.jsp"/>
 		<put-attribute name="content" expression="" />
-		<put-attribute name="footer" expression="/WEB-INF/views/tiles/footer.jsp"/>
+		<put-attribute name="footer" expression="/WEB-INF/views/tiles/layouts/footer.jsp"/>
 	</definition>
 	<!-- *.tiles는 컨트롤러의 String 리턴값으로 사용됩니다. jsp대신에 뷰단을 대체. -->
 	<!-- index.tiles 또는 join.tiles 이런 리턴을 사용하면 아래 {1} = home, join -->
