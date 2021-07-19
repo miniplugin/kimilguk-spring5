@@ -75,6 +75,46 @@
 - Hash해시태그: 그물망(해시)=#=좌표(x,y)=(Key:Value)
 
 #### 20210719(월) 작업.
+- Temp변수사용 정렬 코딩 테스트02소스(아래).지난주에 사용한 Arrays클래스 sort메서드구성연습
+
+```
+import java.util.Scanner;
+import java.util.Arrays;//로직에서 필요 없으나, 디버그용으로 사용
+class Main {
+	public static void main(String[] args) {
+		int n;//정렬할 숫자의 개수 변수생성
+		int[] Numbers;//배열변수 생성
+		int prev, next, Temp;//이전,다음,임시저장변수 생성
+		Scanner sc = new Scanner(System.in);//스캐너클래스를 이용해서 바이트단위(문자)로 키보드로 입력받음 커서발생
+		n = sc.nextInt();//키보드로 입력받는 내용을 n에 입력합니다.
+		//System.out.println("키보드로 입력받은 변수값은 : " + n);
+		Numbers = new int[n];//배열변수의 크기 초기화.
+		for(int i=0;i<n;i++) {//키보드 정렬할 변수값을 입력 받습니다.Numbers[]배열변수에...
+			Numbers[i] = sc.nextInt();
+		}
+		//Arrays.sort(Numbers);
+		System.out.println("입력한 배열값은 " + Arrays.toString(Numbers));
+		//여기서부터 소팅로직 시작
+		for(prev=0;prev<(n-1);prev++) { //예, 5개 숫자를 입력하면, 4번 반복합니다. 
+			//n-1번만 이유는 4번째 이후 비교할 다음변수가 있기 때문에
+			for(next=(prev+1);next<n;next++) {
+				if(Numbers[prev] > Numbers[next]) {//이전변수값이 더 크다면, 앞 뒤 변수값을 자리 바꿈합니다.
+					//위 부등호만 바꾸면, > 오름차순, < 내림차순
+					Temp = Numbers[prev];//이전변수값이 저장
+					Numbers[prev] = Numbers[next];
+					Numbers[next] = Temp;
+				}
+			}
+		}
+		//자리바꿈결과를 출력하는 구문, Arrays유틸클래스 사용하지 않고, for문사용
+		//인덱스 개수 5개 , 0부터시작하기 때문에 4까지가 인덱스 번호의 끝
+		for(int i=0;i<n;i++) {
+			System.out.print(Numbers[i]+ " ");
+		}
+	}
+}
+```
+
 
 - 스위치변수 사용 코딩 테스트01소스(아래).
 
@@ -112,7 +152,7 @@ class Main {
 ```
 - 빅O 시간복잡도 구하기: for문을 1개면, Big O(N)번 횟수, 
 - 중복for문이면, Big O = N^2
-- for(i=1, i==3, i++) { for(i=1,i==3,i++) { 구현로직 } }
+- for(i=1, i=3, i++) { for(ii=1,ii=3,ii++) { 구현로직 } }
 - 위 중복for문은 시간복잡도가 O(N^2)번 횟수
 - 프로그램의 성능을 측정하는 단위 빅O 표기사용합니다.
 - 화폐매수구하기: 277,777원 입금금액 있다면,
