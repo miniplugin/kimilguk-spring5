@@ -75,9 +75,57 @@
 - Hash해시태그: 그물망(해시)=#=좌표(x,y)=(Key:Value)
 
 #### 20210719(월) 작업.
-- 삽입정렬 코딩테스트04소스(아래).오름차순에서
-- 특징1: 
-- 버블정렬 코딩테스트03소스(아래).오름차순에서
+- 10진수를 2진수로 변환 코딩테스트05소스(아래)
+- 13 = 1101(2)
+- 13 = 10의 자리 1, 1의 자리 3
+- 1101 = 8421(자리수)코드 = 2(3)자리수 1, 2(2)자리는 1, 2(1)자리는 0, 2(0)자리는 1
+- 모든수의 0승(제곱) = 1
+- -----------------------------------------------
+- 삽입정렬 코딩테스트04소스(아래).오름차순에서 10번 반복 결과가 나옴.
+- -----------------------------------------------
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int n;
+		int[] Numbers;
+		int insert, comp, Key;
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		Numbers = new int[n];
+		for(int i=0;i<n;i++) {
+			Numbers[i] = sc.nextInt();
+		}
+		//System.out.println("키보드로 입력받은 배열의 값은 " + Arrays.toString(Numbers));
+		for(insert=1;insert<n;insert++) {
+			Key = Numbers[insert];//인덱스1의 값 4를 삽입
+			for(comp=insert-1;comp>=0;comp--) {
+				if(Numbers[comp] > Key) {//5와 4를 비교
+					Numbers[comp+1] = Numbers[comp];//인덱스1의 자리에 5를 삽입
+				}else{
+					break;//내부for 빠져나감
+				}
+				//if(insert < 3) {
+					System.out.println("내부 for문 "+comp+" 회전일때 Numbers값은 "+ Arrays.toString(Numbers));
+				//}
+			}
+			//System.out.println("comp 값은 " + comp);
+			Numbers[comp+1] = Key;//인덱스0의 자리에 4를 입력
+			//if(insert < 3) {
+			//	System.out.println("외부 for문 키값은 "+Key+" Numbers값은 "+ Arrays.toString(Numbers));
+			//}
+		}
+		for(int i=0;i<n;i++) {
+			System.out.print(Numbers[i] + " ");
+		}
+	}	
+}
+```
+- ----------------------------------------------
+- 버블정렬 코딩테스트03소스(아래).오름차순에서 20번 만에 결과가 나옴.
+- ----------------------------------------------
 - 특징1: 선택정렬과는 반대로 제일 큰 값이 오른쪽에 배치되면서 1회전이 종료
 - 참고) 선택정렬은 제일 작은 값이 왼쪽에 배치되면서 1회전이 종료
 - 특징2: 비교할때 선택정렬은 비교할 기준자리가 있으나, 버블정렬은 바로 옆의 값을 비교하는 방식(거품방식)
@@ -116,7 +164,10 @@ class Main {
 	}	
 }
 ```
-- Temp변수사용 정렬 코딩 테스트02소스(아래).지난주에 사용한 Arrays클래스 sort메서드구성연습
+- -----------------------------
+- 선택정렬 : 10번 반복으로 졍렬결과 나옴.
+- -----------------------------
+- *Temp변수사용 정렬 코딩 테스트02소스(아래).지난주에 사용한 Arrays클래스 sort메서드구성연습
 - 예, 중복  for문에서 외부1회전(내부 for문 1회전-4회전)
 - 5, 4, 3, 2, 1(원시데이터)
 - 4, 5, 3, 2, 1(내부for1회전-1번째)
@@ -168,7 +219,7 @@ class Main {
 ```
 
 
-- 스위치변수 사용 코딩 테스트01소스(아래).
+- *스위치변수 사용 코딩 테스트01소스(아래).
 
 ```
 import java.io.BufferedReader;
@@ -202,7 +253,7 @@ class Main {
 	}
 }
 ```
-- 빅O 시간복잡도 구하기: for문을 1개면, Big O(N)번 횟수, 
+- *빅O 시간복잡도 구하기: for문을 1개면, Big O(N)번 횟수, 
 - 중복for문이면, Big O = N^2
 - for(i=1, i=3, i++) { for(ii=1,ii=3,ii++) { 구현로직 } }
 - 위 중복for문은 시간복잡도가 O(N^2)번 횟수
