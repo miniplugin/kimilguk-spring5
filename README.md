@@ -75,7 +75,55 @@
 - Hash해시태그: 그물망(해시)=#=좌표(x,y)=(Key:Value)
 
 #### 20210719(월) 작업.
+- 버블정렬 코딩테스트03소스(아래).
+- 
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int n;
+		int[] Numbers;
+		int bubble, idx, Temp;
+		Scanner sc = new Scanner(System.in);//키보드로 입력 스캐너객체 생성
+		n = sc.nextInt();
+		Numbers = new int[n];//배열의 크기 지정
+		for(int i=0;i<n;i++) {
+			Numbers[i] = sc.nextInt();
+		}
+		System.out.println("입력된 배열값 확인 " + Arrays.toString(Numbers));
+		for(bubble=0;bubble<n;bubble++) {
+			for(idx=0;idx<n-1;idx++) {
+				if(Numbers[idx] > Numbers[idx+1]) {
+					Temp = Numbers[idx];
+					Numbers[idx] = Numbers[idx+1];
+					Numbers[idx+1] = Temp;
+				}
+				if(bubble == 0) {
+					System.out.println(Arrays.toString(Numbers) + "(내부 for"+(idx+1)+"회전)");
+				}				
+			}
+		}
+		//졍렬 결과값 출력(아래)
+		for(int i=0;i<5;i++) {
+			System.out.print(Numbers[i] + " ");
+		}
+	}	
+}
+```
 - Temp변수사용 정렬 코딩 테스트02소스(아래).지난주에 사용한 Arrays클래스 sort메서드구성연습
+- 예, 중복  for문에서 외부1회전(내부 for문 1회전-4회전)
+- 5, 4, 3, 2, 1(원시데이터)
+- 4, 5, 3, 2, 1(내부for1회전-1번째)
+- 3, 5, 4, 2, 1(내부for2회전-2번째)
+- 2, 5, 4, 3, 1(내부for3회전-3번째)
+- 1, 5, 4, 3, 2(내부for4회전-4번째)
+- 외부2회전 (내부 for문 2부터-4회전)
+- 1, 5, 4, 3, 2(원시데이터)
+- 1, 4, 5, 3, 2(내부for1회전-2번째)
+- 1, 3, 5, 4, 2(내부for2회전-3번째)
+- 1, 2, 5, 4, 3(내부for3회전-4번째)
 
 ```
 import java.util.Scanner;
