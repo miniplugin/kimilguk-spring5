@@ -74,7 +74,61 @@
 - 위 HashMap구조: Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그: 그물망(해시)=#=좌표(x,y)=(Key:Value)
 
-#### 20210719(월) 작업예정.
+#### 20210719(월) 작업.
+
+- 스위치변수 사용 코딩 테스트01소스(아래).
+
+```
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));//문자열을 입력하는 커서가 발생
+		int UNIT = 50000;//화폐의 최고단위 금액, 초기화폐단위 초기화
+		int NUM = 0;//(입력금액/단위금액) = 단위금액의 화폐매수 변수 초기화
+		int SW = 0;//스위치(On/Off)변수=플래그(깃발)변수 초기화
+		int MONEY = Integer.parseInt(br.readLine());
+		while(true) { //IoT쪽에서는 while(true)문으로 외부데이터를 읽어 들입니다.
+			if(UNIT>=1) {
+				NUM = (int) MONEY/UNIT;//화폐매수는 0.5매수는 없기때문에 정수로 형변환합니다.
+				System.out.println(UNIT+" 원의 화폐매수는 "+NUM);
+				//다음반복을 위해서 MONEY변수 값 조정, UNIT변수값 조정
+				MONEY = MONEY-(UNIT*NUM);//277777-250000 = 25000 (1회전결과)
+				if(SW==0) {
+					UNIT = UNIT/5;//5만원->1만원으로 단위변경(1회전결과,3회전,5회전...)
+					SW = 1;//1회전 후 SW스위치변수값을 1로 변경
+				}else{
+					UNIT = UNIT/2;//1만원->5천원으로 단위변경(2회전결과,4회전,6회전...)
+					SW = 0;//2회전 후 SW스위치변수값을 0으로 변경
+				}
+			}else{
+				break;//while반복문을 STOP합니다.무한반복을 벗어나는 코드
+			}
+			
+		}
+		
+	}
+}
+```
+- 빅O 시간복잡도 구하기: for문을 1개면, Big O(N)번 횟수, 
+- 중복for문이면, Big O = N^2
+- for(i=1, i==3, i++) { for(i=1,i==3,i++) { 구현로직 } }
+- 위 중복for문은 시간복잡도가 O(N^2)번 횟수
+- 프로그램의 성능을 측정하는 단위 빅O 표기사용합니다.
+- 화폐매수구하기: 277,777원 입금금액 있다면,
+- 5만원짜리 지폐는 몇장인지, = 5장
+- 1만원짜리 지폐는 몇장인지, = 2장
+- 5천춴짜리 지폐는 몇장인지, = 1장 
+- 1천원짜리 지폐는 몇장인지, = 2장
+- 500원 동전은 몇개인지,   = 1개
+- 100원 동전은 몇개인지,   = 2개
+- 50원 동전은 몇개인지,    = 1개
+- 10원, 5원, 1원              = 2개, 1개, 2개
+- 화폐단위가 5만원 부터 시작해서 입력금액/UNIT 1회 반복할때마다 UNIT변경
+- 화폐단위(UNIT)변수가 바뀌는 순서 로직(아래)
+- SW=0 : 5만, 5천원, 500원, 50원, 5원 = UNIT/5
+- SW=1 : 1만, 1천원, 100원, 10원, 1원 = UNIT/2 끝(0.5원화폐단위X)
+
 - 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
 
 #### 20210716(금) 작업.
