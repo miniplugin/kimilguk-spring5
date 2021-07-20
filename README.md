@@ -258,8 +258,8 @@ class Main {
 		}//키보드로 입력한 값중 제일 큰 값이 Max변수 남게됩니다.
 		VoteCnt = new int[Max+1];//투표한 값을 인덱스로 사용한 변수 생성(Max+1는 Out Of Bound 에러를 방지하기 위해서)
 		for(int i=0;i<n;i++) {
-			VoteCnt[VoteIndex[i]] = VoteCnt[VoteIndex[i]] + 1;//여기서 투표한 횟수가 계산이 됩니다.
-			System.out.println("VoteIndex[" + VoteIndex[i] + "]일때 해당 VoteCnt["+VoteIndex[i]+"]값은 " + VoteCnt[VoteIndex[i]]);
+			VoteCnt[VoteIndex[i]] = VoteCnt[VoteIndex[i]] + 1;//여기서 투표한 횟수가 누적이 됩니다.
+			System.out.println("VoteIndex[" + VoteIndex[i] + "]일때 해당 VoteCnt["+VoteIndex[i]+"]누적 값은 " + VoteCnt[VoteIndex[i]]);
 		}
 		for(int i=0; i<Max+1; i++) { //MaxCnt, Top 구하는 for문 로직
 			if(VoteCnt[i] > MaxCnt) {
