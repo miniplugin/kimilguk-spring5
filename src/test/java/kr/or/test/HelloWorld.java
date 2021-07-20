@@ -9,7 +9,9 @@ public class HelloWorld {
 		System.out.println("헬로 자바 !!!!");
 		int[] questions = {1, 5, 4, 3, 2};
 		Arrays.sort(questions);
-		System.out.println(Arrays.toString(questions));		
+		System.out.println(Arrays.toString(questions));
+		String w = "(())";
+		System.out.println(w.substring(0, 1));
 	}
 
 }
