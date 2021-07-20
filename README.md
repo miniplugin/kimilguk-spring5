@@ -74,54 +74,95 @@
 - 위 HashMap구조: Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그: 그물망(해시)=#=좌표(x,y)=(Key:Value)
 
-#### 20210720(화) 작업예정.
-- 코딩테스트 10번 마무리.
-- 코딩테스트 9번 부터 시작,
-- 코딩테스트 8,7,6까지 마무리.
+#### 20210720(화) 작업.
+- 코딩테스트 10번 마무리OK.
+- 코딩테스트 9번 부터 시작, 재귀함수(recursive)
+- 
+
+- 재귀함수란? 메서드 안에서 자기자신을 호출하는 함수.(6번코딩테스트로 실습확인)
+- 코딩실습06. 6번코딩테스트소스(아래)
+
+```
+
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	static long Factorial = 1;//멤버변수(클래스영역의변수)
+	public static long fact(int n) {
+		//예, 5! = 5x4x3x2
+		if(n==1) {
+			return Factorial;
+		}
+		Factorial = Factorial * n;
+		System.out.println(n + "재귀함수가 반복하는 부분 값 " + Factorial);
+		n = n - 1;     //fact(n) : 5 -> 4 -> 3 -> 2 -> 1
+		return fact(n);//재귀함수 만드는 방식 -> 중복 for반복문을 대체하게 됨.
+	}
+	public static void main(String[] args) {
+		int n;//N팩토리얼 에서 n을 구하는 변수
+		long Result;
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();//sc객체를 이용해서 n값을 입력 받습니다.
+		Result = fact(n);//fact 매개변수로 n을 받아서 결과를 리턴 받습니다.
+		System.out.println(n + "팩토리얼의 값은 " + Result);
+	}
+}
+```
+- 코딩테스트 8,7까지 마무리.
 - 8교시에 UI구현 워드문서 과제물 제출전, 7교시에 확인예정.
 
 #### 20210719(월) 작업.
 - 코딩실습10. 로또번호가 올바른 번호인지 확인하는 코드작성 코딩테스트 10번소스(아래) 작업중...
 
 ```
+
 import java.util.Scanner;
 import java.util.Arrays;
 class Main {
-	public static boolean isValid(int[] Lotto, int n) {
-		//조건 1, 2, 3 구현하는 코딩이 입력(아래)
-		if(n != 6) {//조건1중 일부
-			return false;//현재 isValid메서드가 종료되면서, false를 반환 합니다.
-		}
-		//조건1, 중복숫자 검사로직
-		for(int i=0;i<(n-1);i++) {
-			if(Lotto[i] == Lotto[i+1]) {
-				return false;//중복숫자기 있으면, 현재 isValid메서드를 종료 하고, false를 반환합니다. 
-			}
-		}
-		//조건2, 숫자범위는 1부터 45까지의 숫자만 인정이 됨
-		
-		//조건3, 현재 로또번호가 오름차순 정렬로 되었는지 확인하는 로직
-		
-		return true;
-	}
-	public static void main(String[] args) {
-		int n;//6개의 로또번호 입력받을 크기
-		int[] Lotto;//배열의 크기가 필요
-		boolean Real;//진짜 로또번호인지 확인결과 참/거짓
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
-		Lotto = new int[n];
-		for(int i=0;i<n;i++) {
-			Lotto[i] = sc.nextInt();
-		}
-		System.out.println("주운 로또 번호는 "+Arrays.toString(Lotto));
-		Real = isValid(Lotto, n);
-		if(Real == true) {
-			System.out.println("주운 로또번호는 진짜 입니다.");
-		}else{
-			System.out.println("주운 로또번호는 가짜 입니다.");
-		}
-	}	
+    public static boolean isValid(int[] Lotto, int n) {
+        //조건 1, 2, 3 구현하는 코딩이 입력(아래)
+        if(n != 6) {//조건1중 일부
+            return false;//현재 isValid메서드가 종료되면서, false를 반환 합니다.
+        }
+        //조건1, 연속된 숫자가 중복되는지 검사로직
+        for(int i=0;i<(n-1);i++) {
+            if(Lotto[i] == Lotto[i+1]) {
+                return false;//중복숫자기 있으면, 현재 isValid메서드를 종료 하고, false를 반환합니다. 
+            }
+        }
+        //조건2, 숫자범위는 1부터 45까지의 숫자만 인정이 됨
+        for(int i=0;i<n;i++) {
+					if(Lotto[i] < 1 || Lotto[i] > 45) {
+						return false;
+					}
+				}
+        //조건3, 현재 로또번호가 오름차순 정렬로 되었는지 확인하는 로직
+        //앞수 뒤수 비교해서 앞수가 크면, 오름차순에 위배되기 때문에 false
+				for(int i=0;i<n-1;i++) {
+					if(Lotto[i] > Lotto[i+1]) {
+						return false;//현재 메서드를 종료하면서 return으로 false를 반환함.
+					}
+				}
+        return true;
+    }
+    public static void main(String[] args) {
+        int n;//6개의 로또번호 입력받을 크기
+        int[] Lotto;//배열의 크기가 필요
+        boolean Real;//진짜 로또번호인지 확인결과 참/거짓
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        Lotto = new int[n];
+        for(int i=0;i<n;i++) {
+            Lotto[i] = sc.nextInt();
+        }
+        System.out.println("주운 로또 번호는 "+Arrays.toString(Lotto));
+        Real = isValid(Lotto, n);
+        if(Real == true) {
+            System.out.println("주운 로또번호는 진짜 입니다.");
+        }else{
+            System.out.println("주운 로또번호는 가짜 입니다.");
+        }
+    }	
 }
 ```
 
