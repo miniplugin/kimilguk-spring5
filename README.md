@@ -261,10 +261,10 @@ class Main {
 			VoteCnt[VoteIndex[i]] = VoteCnt[VoteIndex[i]] + 1;//여기서 투표한 횟수가 계산이 됩니다.
 			System.out.println("VoteIndex[" + VoteIndex[i] + "]일때 해당 VoteCnt["+VoteIndex[i]+"]값은 " + VoteCnt[VoteIndex[i]]);
 		}
-		for(int i=0;i<Max;i++) {
-			if(VoteCnt[VoteIndex[i]] > MaxCnt) {
-				MaxCnt = VoteCnt[VoteIndex[i]];
-				Top = VoteIndex[i];
+		for(int i=0; i<Max+1; i++) { //MaxCnt, Top 구하는 for문 로직
+			if(VoteCnt[i] > MaxCnt) {
+				MaxCnt = VoteCnt[i]; //최다 선택한 값의 개수
+				Top = i; //최다 선택한 값
 			}
 		}
 		System.out.println("최다 선택값 : " + Top + " 선택한 횟수는 " + MaxCnt);
