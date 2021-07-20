@@ -203,6 +203,75 @@ class Main {
 }
 ```
 - 코딩테스트 8,7까지 마무리.
+- 코딩실습 07번 소스(아래)
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int n;
+		int[] Score;
+		int[] Rank;
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		Score = new int[n];
+		Rank = new int[n];
+		for(int i=0;i<n;i++) {
+			Score[i] = sc.nextInt();
+		}
+		System.out.println("입력한 점수배열은 " + Arrays.toString(Score));
+		for(int i=0;i<n;i++) {
+			for(int comp=0;comp<n;comp++) {
+				if(Score[i] < Score[comp]) {//내부 for문에서 Score[i]기준값 , Score[comp]비교값 반복시 변화됨.
+					Rank[i] = Rank[i] + 1;//기준값과 비교해서 본인값이 낮으면 랭크를 올립니다. 기준값의 등수가 낮아짐.
+				}
+			}
+			//Rank[i] = Rank[i] + 1;//인덱스가 0부터 시작해서 이코드를 추가하면, 1등부터 시작합니다.
+		}
+		for(int i=0;i<n;i++) {
+			System.out.println(i+" 번째 학생의 점수는 "+Score[i]+" 등수는 "+(Rank[i]+1));
+		}
+	}
+}
+```
+- 코딩실습 08번 소스(아래)
+- 위 입력예) 좋아하는 색상을 선택하세요, 1:빨강, 2:노랑, 3:녹색
+- { 1, 1, 2, 3, 4, 1, 2, 3, 4, ...} 최다선택한 색상을 구하는 로직입니다.
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	//스태틱 클래스,메서드,변수 : 객체로 생성을 하지 않아도 실행이 되는 메모리영역에 있다.
+	public static void main(String[] args) {
+		int n, Top=0, Max=0, MaxCnt=0;
+		int[] VoteIndex, VoteCnt;
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		VoteIndex = new int[n];
+		for(int i=0;i<n;i++) {
+			VoteIndex[i] = sc.nextInt();
+			if(VoteIndex[i] > Max) { //최고값을 구하는 간단한 로직
+				Max = VoteIndex[i];
+			}
+		}//키보드로 입력한 값중 제일 큰 값이 Max변수 남게됩니다.
+		System.out.println("입력값중 가장 큰 값은 " + Max);
+		VoteCnt = new int[Max+1];
+		for(int i=0;i<n;i++) {
+			VoteCnt[VoteIndex[i]] = VoteCnt[VoteIndex[i]] + 1;//여기서 투표한 횟수가 계산이 됩니다.
+			System.out.println("VoteIndex[" + VoteIndex[i] + "]일때 해당 인덱스증가값은 " + VoteCnt[VoteIndex[i]]);
+		}
+		for(int i=0;i<Max+1;i++) {
+			if(VoteIndex[i] > MaxCnt) {
+				MaxCnt = VoteIndex[i];
+				Top = i;
+			}
+		}
+		System.out.println("최다 선택값 : " + Top + " 선택한 횟수는 " + MaxCnt);
+	}
+}
+```
 - 8교시에 UI구현 워드문서 과제물 제출전, 7교시에 확인예정.
 
 #### 20210719(월) 작업.
