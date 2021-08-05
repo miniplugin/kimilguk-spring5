@@ -66,6 +66,7 @@ where bno = #{bno}
 <delete id="deleteBoard">
 delete from tbl_board where bno = #{bno}
 </delete>
+<!-- mysql일때반환값:select bno+1 from tbl_board order by bno desc limit 1, Hsql헤로쿠배포용: select top 1 bno+1 from tbl_board order by bno desc -->
 <insert id="insertBoard" parameterType="com.edu.vo.BoardVO">
 	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
 	select top 1 bno+1 from tbl_board order by bno desc
