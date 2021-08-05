@@ -275,6 +275,15 @@ var printReplyList = function(data, templateData, target) {
 	$('.div_template').remove();//기존 댓글데이터 누적을 방지 target안쪽의 자식만지움
 	target.prepend(html);
 };
+var printList2 = function(data, templateObject, target) {
+	console.log(data);
+	var template = Handlebars.compile(templateObject.html()); //html태그로 변환
+	var html = template(data); //빅데이터를 리스트탬플릿에 바인딩(데이터결합,묶음) 역할. 변수 html에 저장되었음.
+	//$(".template-div").remove(); // 화면에 보이는 댓글리스트만 지우기
+	//target.after(html); //target은 .time-label 클래스 영역을 가리킨다.
+	//target.append(html); //target은 #div_reply 아이디 영역을 가리킨다. append는 내부내용 기존 내용의 뒤에 추가
+	target.prepend(html); //prepend 내부 내용 추가시 기존 내용의 앞에 추가한다.
+};
 //댓글 하단 페이징을 출력 함수
 var printPagingList = function(pageVO, target) {
   //스프링RestAPI서버에서 받은 pageVO 오브젝트 target에 파싱합니다(아래)
@@ -355,6 +364,20 @@ $(document).ready(function(){
 					var reply_count = $("#reply_count").text();//Get
 					$("#reply_count").text(parseInt(reply_count)-1);//Set
 					$("#reply_page").val("1");//댓글을 삭제한 후 1페이지로 이동
+					/*
+					//var todoList = '[0:{no: 112, list: "테스트1", reg_date: "2021-08-05", update_date: "2021-08-05"}]';
+					var aJsonArray = new Array();
+					var aJson = new Object();
+					aJson.no = result;//현재 success이미만, 입력된 PK값을 반환받았다면 사용
+					aJson.list = $("#reply_text").val();
+					aJsonArray.push(aJson);
+					var todo = JSON.stringify(aJsonArray);
+					todoList = JSON.parse(todo);
+					console.log(todoList);
+					printList2(todoList, $("#div_todoList"), $("#template"));//화면에 출력하는 구현함수를 호출하면 실행.
+					console.log("여기까지" + JSON.stringify(result.replyList));//크롬콘솔에서 확인
+					printReplyList(result.replyList, $("#collapseReply"), $("#template"));
+					*/
 					replyList();
 				}
 			},
